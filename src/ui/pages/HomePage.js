@@ -7,22 +7,32 @@ export class HomePage {
     this.newArticleLink = page.getByRole('link', { name: 'New Article' });
     this.globalFeedTab = page.getByText('Global Feed');
     this.followArticleButton = page.getByRole('button', { name: '' });
-    this.noArticlesMessage = page.getByText('No articles are here... yet.')
+    this.noArticlesMessage = page.getByText('No articles are here... yet.');
+    this.loadingSpinner = page.locator('.loading-spinner');
     this.settingsButton = page.getByRole('link', { name: '  Settings' });
   }
+
   async open() {
     await test.step(`Open Home page`, async () => {
       await this.page.goto('');
     });
   }
+
   async clickSettingsButton() {
     await test.step("Go to Settings page", async () => {
       await this.settingsButton.click();
     });
   }
+
+  async waitUntillPageLoad() {
+    await test.step("Wait untill page loads", async () => {
+      await expect(this.loadingSpinner).toBeHidden();
+    });
+  }
+
   async refreshThePage() {
     await test.step('Refresh the page', async ()=> {
-      this.page.reload();
+      await this.page.reload();
     })
   }
 

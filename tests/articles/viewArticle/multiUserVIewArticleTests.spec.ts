@@ -65,7 +65,7 @@ test('User can view an article updated by another user.', async ({
   const newText = faker.lorem.sentences(2)
 
   await viewArticlePage1.clickEditArticleButton();
-  await page1.waitForTimeout (3000);
+  await editArticlePage.waitUntillFormLoads();
 
   await editArticlePage.editArticleText(articleWithOneTag.text, newText);
   await editArticlePage.clickUpdateArticleButton();

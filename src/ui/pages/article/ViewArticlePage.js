@@ -9,8 +9,8 @@ export class ViewArticlePage {
     this.homeTab = page.getByRole('link', { name: 'Home' });
   }
 
-  authorLinkInArticleHeader(username) {
-    return this.page.getByRole('link', { username }).first();
+  authorLinkInArticleHeader(name) {
+    return this.page.getByRole('link', { name }).first();
   }
 
   url() {

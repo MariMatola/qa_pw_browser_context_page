@@ -5,7 +5,8 @@ export class EditArticlePage {
     this.page = page;
     this.articleTitleHeader = page.getByRole('heading');
     this.updateArticleButton = page
-    .getByRole('button', { name: 'Update Article' })
+    .getByRole('button', { name: 'Update Article' });
+    this.editArticleForm = page.locator('div.col-md-10.offset-md-1.col-xs-12');
   }
 
   
@@ -14,10 +15,16 @@ export class EditArticlePage {
       await this.updateArticleButton.click();
     });
   }
+
+  async waitUntillFormLoads() {
+    await test.step('Wait untill edit article form loads', async () => {
+      await expect(this.editArticleForm).toBeVisible();
+    });
+  }
   
   async editArticleText(text, newText) {
     await test.step(`Assert the article has correct text'`, async () => {
-      this.page.locator('textarea.form-control').fill(newText);
+      await this.page.locator('textarea.form-control').fill(newText);
     });
   }
 

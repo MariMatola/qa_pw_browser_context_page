@@ -25,37 +25,17 @@ test('User can sign in with changed in profile password', async ({
   await signInUser(page2, user);
 });
 
-test('User can sign in with changed in profile password', async ({
-  user,
-  homePage1,
-  homePage2, 
-  page1,
-  page2
-}) => {
-  user.password = await `${faker.internet.password()}`;
-  const settingsPage = new SettingsPage(page1);
-
-  await homePage1.clickSettingsButton();
-  await settingsPage.fillInNewPassword(user.password);
-  await settingsPage.clickUpdateSettingsButton();
-
-  await signInUser(page2, user);
-});
-
 test('User can see own article in "Global feed" when not logged in.', async ({
-  user,
-  homePage1,
   articleWithOneTag,
   homePage2, 
   page1,
-  page2
 }) => {
   await createArticle(page1, articleWithOneTag);
 
   await homePage2.open();
   await homePage2.openGlobalFeed();
   await homePage2.filterByTag(articleWithOneTag.tags[0]);
-  await page2.waitForTimeout(10000);
+  await homePage2.waitUntillPageLoad();
   await homePage2.assertArticleTitleIsVisible(articleWithOneTag.title);
   await homePage2.followTheArticle(articleWithOneTag.title);
 });
