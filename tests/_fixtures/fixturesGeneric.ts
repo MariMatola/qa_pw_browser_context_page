@@ -25,7 +25,7 @@ export const test = base.extend<
     await use(page2);
   },
   user: async ({ logger }, use) => {
-    const user = generateNewUserData(logger);
+    const user = await generateNewUserData(logger);
 
     await use(user);
   },
@@ -33,7 +33,7 @@ export const test = base.extend<
     await use(user);
   },
   user2: async ({ logger }, use) => {
-    const user2 = generateNewUserData(logger);
+    const user2 = await generateNewUserData(logger);
 
     await use(user2);
   },
